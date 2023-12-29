@@ -2,7 +2,7 @@
 #### php >=8.2
 #### node >=18
 
-bash```
+```bash
 composer install
 
 php artisan migrate
