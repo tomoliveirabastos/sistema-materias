@@ -1,26 +1,15 @@
-@extends('base')
-@section('conteudo')
-    @if (request()->get('msg'))
-        <small style="color:green">{{ request()->get('msg') }}</small>
-    @endif
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
-    <table class="table">
-        <tr>
-            <th>Nome</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-
-        @foreach ($mensagens as $item)
-            <tr>
-                <td>{{ $item->nome_do_aluno }}</td>
-                <td>{{ $item->cidade }}</td>
-                <td>{{ $item->estado }}</td>
-                <td>{{ $item->status }}</td>
-                <td><a href="/responder/{{ $item->id }}">responder</a></td>
-            </tr>
-        @endforeach
-    </table>
-@endsection
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <x-welcome />
+            </div>
+        </div>
+    </div>
+</x-app-layout>
