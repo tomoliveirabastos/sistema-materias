@@ -14,45 +14,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class InitController extends Controller
 {
-    private Session $session;
-    public function __construct(Session $session)
-    {
-        parent::__construct($session);
-        $this->session = $session;
-    }
-
-
-    #[Any("/responder/{mensagem}", middleware: 'web')]
-    public function responder(Request $request, Mensagem $mensagem)
-    {
-
-        if ($request->isMethod('POST')) {
-
-            $mensagem->fill($request->all());
-            $mensagem->status = "respondido";
-            $mensagem->save();
-
-            return redirect("/dashboard?msg=Mensagem respondida");
-        }
-
-        return view('responder', [
-            'mensagem' => $mensagem
-        ]);
-    }
-
-
-    #[Get("/dashboard", middleware: 'web')]
-    public function dashboard()
-    {
-        if (!$this->session->get('user')) {
-            return redirect('/login');
-        }
-
-        $mensagens = Mensagem::get();
-
-        return view('dashboard', compact('mensagens'));
-    }
-
     #[Any("cadastrar", middleware: 'guest')]
     public function cadastrar(Request $request)
     {

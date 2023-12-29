@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Mensagem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,17 +19,35 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::middleware([
-    'auth:sanctum',
+Route::middleware(['auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
+    Route::any('/responder/{mensagem}', function (Request $request, Mensagem $mensagem)
+    {
+        if ($request->isMethod('POST')) {
+
+            $mensagem->fill($request->all());
+            $mensagem->status = "respondido";
+            $mensagem->save();
+
+            return redirect("/dashboard?msg=Mensagem respondida");
+        }
+
+        return view('responder', [
+            'mensagem' => $mensagem
+        ]);
+    });
+
     Route::get('/', function () {
-        return view('dashboard');
+        return redirect('dashboard');
     })->name('dashboard');
 
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+
+        $mensagens = Mensagem::get();
+        return view('dashboard', compact('mensagens'));
     })->name('dashboard');
 });
