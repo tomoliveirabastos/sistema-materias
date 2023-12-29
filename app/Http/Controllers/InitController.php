@@ -21,13 +21,6 @@ class InitController extends Controller
         $this->session = $session;
     }
 
-    #[Get("logout", middleware: 'guest')]
-    public function logout()
-    {
-        $this->session->remove('user');
-
-        return response('ok');
-    }
 
     #[Any("/responder/{mensagem}", middleware: 'web')]
     public function responder(Request $request, Mensagem $mensagem)
@@ -48,7 +41,7 @@ class InitController extends Controller
     }
 
 
-    #[Get("dashboard", middleware: 'web')]
+    #[Get("/dashboard", middleware: 'web')]
     public function dashboard()
     {
         if (!$this->session->get('user')) {
@@ -58,27 +51,6 @@ class InitController extends Controller
         $mensagens = Mensagem::get();
 
         return view('dashboard', compact('mensagens'));
-    }
-
-    #[Any("login", middleware: 'guest')]
-    public function login(Request $request)
-    {
-        if ($request->isMethod("POST")) {
-
-            $json = $request->all();
-
-            $user = User::where('email', $json['email'])->first();
-
-            if ($user && Hash::check($json['password'], $user->password)) {
-
-                $this->session->set("user", $user);
-                return redirect('/dashboard');
-            }
-
-            return redirect('/login?error=Falhou ao logar');
-        }
-
-        return view("welcome");
     }
 
     #[Any("cadastrar", middleware: 'guest')]

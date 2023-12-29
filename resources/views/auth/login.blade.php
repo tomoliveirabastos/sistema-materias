@@ -33,6 +33,9 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
+
+
+
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
@@ -43,6 +46,22 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="/register">
+                {{ __('Novo usuario') }}
+            </a>
+
+            <br>
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="/cadastrar_nova_materia">
+                {{ __('Nova Materia') }}
+            </a>
+
+            <br>
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="/nova_mensagem">
+                {{ __('Nova mensagem') }}
+            </a>
+            <br>
+
         </form>
     </x-authentication-card>
 </x-guest-layout>
