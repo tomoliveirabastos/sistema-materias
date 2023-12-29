@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Materia;
 use App\Models\MateriaUser;
-use App\Models\Mensagem;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\RouteAttributes\Attributes\Any;
-use Spatie\RouteAttributes\Attributes\Get;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class InitController extends Controller
 {
